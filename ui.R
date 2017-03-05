@@ -17,7 +17,15 @@ ui <- fluidPage(
   navbarPage("Menu",
              tabPanel("Summary", verbatimTextOutput("summary")),
              tabPanel("Map", plotOutput("map")),
-             tabPanel("Bar Graph", plotOutput("box")),
+             tabPanel("Bar Graph", 
+                      sidebarLayout(
+                        sidebarPanel(
+                          selectizeInput("subject", label = "Exam Subjects", 
+                                         choices = unique(average.stem.data$Exam.Subject),
+                                         multiple = TRUE), 
+                          sliderInput("score", label = "Score", min = 1, max = 5, value = 1)),
+                        mainPanel(
+                          plotOutput("box")))),
              tabPanel("Pie Chart", plotOutput("pie")),
              tabPanel("Analysis", textOutput("analysis")))
 )
