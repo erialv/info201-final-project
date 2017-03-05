@@ -29,8 +29,7 @@ server <- function(input, output) {
       ylim(0, 100) +
       labs(x = "Exam Subjects", y = "Percentage (in %)") +
       theme(axis.text.x = element_text(hjust = 30, angle = 20), axis.title.x = element_blank())
-    plotly.graph <- plotly_build(graph)
-    plotly.graph$layout$margin$a <- plotly.graph$layout$margin$a + 500
+    plotly.graph <- ggplotly(graph)
       return(plotly.graph)
     })
 }
