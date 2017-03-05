@@ -5,13 +5,13 @@ library(plotly)
 
 data <- read.csv("data/exams.csv", stringsAsFactors = FALSE)
 
-stem.data <- data %>% 
+average.stem.data <- data %>% 
   filter(Exam.Subject == "BIOLOGY" | Exam.Subject == "CHEMISTRY" | Exam.Subject == "CALCULUS AB" | 
            Exam.Subject == "CALCULUS BC" | Exam.Subject == "COMPUTER SCIENCE A" | 
            Exam.Subject == "PHYSICS C: ELECTRICTY & MAGNETISM" | Exam.Subject == "PHYSICS C: MECHANICS" |
            Exam.Subject == "PHYSICS 1" | Exam.Subject == "PHYSICS 2" | Exam.Subject == "STATISTICS") %>% 
-  filter(Score == "Average") %>% 
-  select(Exam.Subject, Students..Female., Students..Male.)
+  filter(Score == "Average" | Score == "All") %>% 
+  select(-Students..11th.Grade., -Students..12th.Grade.)
 
 ui <- fluidPage(
   titlePanel("Ap Sh/t"),
