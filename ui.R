@@ -2,6 +2,7 @@ library(shiny)
 library(ggplot2)
 library(dplyr)
 library(plotly)
+library(tidyr)
 
 data <- read.csv("data/exams.csv", stringsAsFactors = FALSE)
 
@@ -11,6 +12,7 @@ average.stem.data <- data %>%
            Exam.Subject == "PHYSICS C: ELECTRICTY & MAGNETISM" | Exam.Subject == "PHYSICS C: MECHANICS" |
            Exam.Subject == "PHYSICS 1" | Exam.Subject == "PHYSICS 2" | Exam.Subject == "STATISTICS") %>% 
   select(-Students..11th.Grade., -Students..12th.Grade.)
+
 
 ui <- fluidPage(
   titlePanel("Ap Sh/t"),
@@ -25,7 +27,7 @@ ui <- fluidPage(
                                          multiple = TRUE), 
                           sliderInput("score", label = "Score", min = 1, max = 5, value = 1)),
                         mainPanel(
-                          plotOutput("box")))),
+                          plotlyOutput("bar", height = "500px")))),
              tabPanel("Pie Chart", plotOutput("pie")),
              tabPanel("Analysis", textOutput("analysis")))
 )
