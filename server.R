@@ -3,7 +3,7 @@ library(ggplot2)
 library(dplyr)
 library(plotly)
 library(tidyr)
-
+library(treemap)
 
 server <- function(input, output) {
   

@@ -3,6 +3,7 @@ library(ggplot2)
 library(dplyr)
 library(plotly)
 library(tidyr)
+library(treemap)
 
 data <- read.csv("data/exams.csv", stringsAsFactors = FALSE)
 
