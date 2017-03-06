@@ -42,3 +42,5 @@ server <- function(input, output) {
                  fontsize.labels = 14)
   })
 }
+
+shinyServer(server)

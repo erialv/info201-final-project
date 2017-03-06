@@ -11,7 +11,7 @@ stem.subjects <- c("BIOLOGY", "CHEMISTRY", "CALCULUS AB", "CALCULUS BC", "COMPUT
               "PHYSICS 1", "PHYSICS 2", "STATISTICS")
 
 stem.data <- data %>% 
-  filter(Exam.Subject %in% stem.subjects) %>% 
+  filter(Exam.Subject %in% stem.subjects) %>%
   select(-Students..11th.Grade., -Students..12th.Grade.)
 
 data.students <- read.csv("data/students.csv", stringsAsFactors = FALSE)
@@ -35,3 +35,5 @@ ui <- fluidPage(
              tabPanel("Pie Chart", plotOutput("pie")),
              tabPanel("Analysis", textOutput("analysis")))
 )
+
+shinyUI(ui)
