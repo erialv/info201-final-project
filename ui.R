@@ -32,7 +32,13 @@ ui <- fluidPage(
                           sliderInput("score", label = "Score", min = 1, max = 5, value = 1)),
                         mainPanel(
                           plotOutput("bar")))),
-             tabPanel("Pie Chart", plotOutput("pie")),
+             tabPanel("Pie Chart", 
+                      sidebarLayout(
+                        sidebarPanel(
+                          selectInput("subject.race", 
+                                      label = "Exam Subjects", 
+                                      choices = unique(stem.data$Exam.Subject))
+                        ), mainPanel(plotOutput("pie")))),
              tabPanel("Analysis", textOutput("analysis")))
 )
 

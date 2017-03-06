@@ -23,6 +23,17 @@ server <- function(input, output) {
     return(percent)
   })
   
+  filtered.race <- reactive({
+    percent.race <- stem.data %>% 
+      filter(Score == "All") %>% 
+      filter(Exam.Subject == input$subject.race) %>% 
+      select(-Score, -Students..Male., -Students..Female.)
+    
+    percent.race <- gather(percent.race, key = Race, value = Population, 2:8)
+    
+    return(percent.race)
+  })
+  
   output$bar <- renderPlot({
     graph <- ggplot(data = filtered()) +
       geom_bar(mapping = aes(x = Exam.Subject, y = Percentage, fill = Sex), stat = "identity", position = "dodge") +
