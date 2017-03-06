@@ -19,7 +19,7 @@ ui <- fluidPage(
   titlePanel("Ap Sh/t"),
   navbarPage("Menu",
              tabPanel("Summary", verbatimTextOutput("summary")),
-             tabPanel("Map", plotOutput("treemap")),
+             tabPanel("Treemap", plotOutput("treemap")),
              tabPanel("Bar Graph", 
                       sidebarLayout(
                         sidebarPanel(
