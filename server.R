@@ -23,13 +23,12 @@ server <- function(input, output) {
     return(percent)
   })
   
-  output$bar <- renderPlotly({
+  output$bar <- renderPlot({
     graph <- ggplot(data = filtered()) +
       geom_bar(mapping = aes(x = Exam.Subject, y = Percentage, fill = Sex), stat = "identity", position = "dodge") +
       ylim(0, 100) +
       labs(x = "Exam Subjects", y = "Percentage (in %)") +
-      theme(axis.text.x = element_text(hjust = 30, angle = 20), axis.title.x = element_blank())
-    plotly.graph <- ggplotly(graph)
-      return(plotly.graph)
+      theme(axis.text.x = element_text(angle = 45), axis.title.x = element_blank())
+      return(graph)
     })
 }
