@@ -7,13 +7,16 @@ library(treemap)
 
 data <- read.csv("data/exams.csv", stringsAsFactors = FALSE)
 
-average.stem.data <- data %>% 
-  filter(Exam.Subject == "BIOLOGY" | Exam.Subject == "CHEMISTRY" | Exam.Subject == "CALCULUS AB" | 
-           Exam.Subject == "CALCULUS BC" | Exam.Subject == "COMPUTER SCIENCE A" | 
-           Exam.Subject == "PHYSICS C: ELECTRICTY & MAGNETISM" | Exam.Subject == "PHYSICS C: MECHANICS" |
-           Exam.Subject == "PHYSICS 1" | Exam.Subject == "PHYSICS 2" | Exam.Subject == "STATISTICS") %>% 
+stem.subjects <- c("BIOLOGY", "CHEMISTRY", "CALCULUS AB", "CALCULUS BC", "COMPUTER SCIENCE A", "PHYSICS C: ELECTRICITY & MAGNETISM", "PHYSICS C: MECHANICS",
+              "PHYSICS 1", "PHYSICS 2", "STATISTICS")
+
+stem.data <- data %>% 
+  filter(Exam.Subject %in% stem.subjects) %>% 
   select(-Students..11th.Grade., -Students..12th.Grade.)
 
+data.students <- read.csv("data/students.csv", stringsAsFactors = FALSE)
+
+data.students <- data.students[-c(38, 39), ]
 
 ui <- fluidPage(
   titlePanel("Ap Sh/t"),
@@ -24,7 +27,7 @@ ui <- fluidPage(
                       sidebarLayout(
                         sidebarPanel(
                           selectizeInput("subject", label = "Exam Subjects", 
-                                         choices = unique(average.stem.data$Exam.Subject),
+                                         choices = unique(stem.data$Exam.Subject),
                                          multiple = TRUE), 
                           sliderInput("score", label = "Score", min = 1, max = 5, value = 1)),
                         mainPanel(

@@ -8,12 +8,12 @@ library(treemap)
 server <- function(input, output) {
   
   filtered <- reactive({
-    average.score <- average.stem.data %>% 
+    scores <- stem.data %>% 
       filter(Exam.Subject %in% input$subject) %>% 
       select(Exam.Subject, Score, Students..Male., Students..Female.) %>% 
       filter(Score == input$score | Score == "All") 
 
-    percent <- average.score %>% 
+    percent <- scores %>% 
       group_by(Exam.Subject) %>% 
       mutate(male.count = Students..Male.[1], male.all = Students..Male.[2]) %>% 
       mutate(female.count = Students..Female.[1], female.all = Students..Female.[2]) %>% 
@@ -28,7 +28,17 @@ server <- function(input, output) {
       geom_bar(mapping = aes(x = Exam.Subject, y = Percentage, fill = Sex), stat = "identity", position = "dodge") +
       ylim(0, 100) +
       labs(x = "Exam Subjects", y = "Percentage (in %)") +
-      theme(axis.text.x = element_text(angle = 45), axis.title.x = element_blank())
+      theme(axis.text.x = element_text(angle = 15), axis.title.x = element_blank())
       return(graph)
     })
+  
+  output$treemap <- renderPlot({
+    t <- treemap(data.students,
+                 index = c("Exam.Subject"),
+                 vSize = "All.Students..2016.",
+                 palette = "Blues",
+                 title = "AP Test Distribution",
+                 fontsize.title = 36,
+                 fontsize.labels = 14)
+  })
 }
