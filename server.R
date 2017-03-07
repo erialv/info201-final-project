@@ -39,10 +39,11 @@ server <- function(input, output) {
   
   output$bar <- renderPlot({
     graph <- ggplot(data = filtered()) +
+      ggtitle("Score by Gender") +
       geom_bar(mapping = aes(x = Exam.Subject, y = Percentage, fill = Sex), stat = "identity", position = "dodge") +
       ylim(0, 100) +
       labs(x = "Exam Subjects", y = "Percentage (in %)") +
-      theme(axis.text.x = element_text(angle = 30, hjust = 1), axis.title.x = element_blank()) +
+      theme(axis.text.x = element_text(angle = 30, hjust = 1), axis.title.x = element_blank(), plot.title = element_text(size = 24)) +
       scale_fill_manual(values = c("#66c2a3", "#4292c5"))
       return(graph)
     })
@@ -52,8 +53,8 @@ server <- function(input, output) {
                  index = c("Exam.Subject"),
                  vSize = "All.Students..2016.",
                  palette = "GnBu",
-                 title = "AP Test Distribution",
-                 fontsize.title = 36,
+                 title = "Test Distribution",
+                 fontsize.title = 24,
                  fontsize.labels = 12)
   })
   
@@ -62,7 +63,7 @@ server <- function(input, output) {
                      textinfo = "percent", 
                      insidetextfont = list(color = "white"), hoverinfo = "text",
                      text = ~paste(Race, "\n", Population, " students")) %>%
-      layout(title = "AP Test Taker Demographic Breakdown",
+      layout(title = "Test Taker Demographic Breakdown",
              xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
              yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
              paper_bgcolor = "transparent",

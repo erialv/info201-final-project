@@ -23,7 +23,7 @@ ui <- fluidPage(theme = shinytheme("flatly"),
   titlePanel("AP Testing: STEM Analysis"),
   navbarPage("",
              tabPanel("Summary", plotOutput("treemap"), textOutput("summary")),
-             tabPanel("Bar Graph", 
+             tabPanel("Scores", 
                       sidebarLayout(
                         sidebarPanel(
                           selectizeInput("subject", label = "Exam Subjects", 
@@ -32,7 +32,7 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                           sliderInput("score", label = "Score", min = 1, max = 5, value = 1)),
                         mainPanel(
                           plotOutput("bar")))),
-             tabPanel("Pie Chart", 
+             tabPanel("Demographic", 
                       sidebarLayout(
                         sidebarPanel(
                           selectInput("subject.race", 
