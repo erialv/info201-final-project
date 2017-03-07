@@ -38,7 +38,7 @@ ui <- fluidPage(
                           selectInput("subject.race", 
                                       label = "Exam Subjects", 
                                       choices = unique(stem.data$Exam.Subject))
-                        ), mainPanel(plotOutput("pie")))),
+                        ), mainPanel(plotlyOutput("pie")))),
              tabPanel("Analysis", textOutput("analysis")))
 )
 

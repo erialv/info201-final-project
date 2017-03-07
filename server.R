@@ -4,6 +4,7 @@ library(dplyr)
 library(plotly)
 library(tidyr)
 library(treemap)
+library(RColorBrewer)
 
 server <- function(input, output) {
   
@@ -29,6 +30,9 @@ server <- function(input, output) {
       filter(Exam.Subject == input$subject.race) %>% 
       select(-Score, -Students..Male., -Students..Female.)
     
+    colnames(percent.race) <- c("Exam.Subject", "White", "Black", "Hispanic/Latino", "Asian", 
+                                "American-Indian/Alaska Native", "Native Hawaiian/Pacific Islander",
+                                "Two or More Races", "All")
     percent.race <- gather(percent.race, key = Race, value = Population, 2:8)
     
     return(percent.race)
@@ -39,7 +43,8 @@ server <- function(input, output) {
       geom_bar(mapping = aes(x = Exam.Subject, y = Percentage, fill = Sex), stat = "identity", position = "dodge") +
       ylim(0, 100) +
       labs(x = "Exam Subjects", y = "Percentage (in %)") +
-      theme(axis.text.x = element_text(angle = 15), axis.title.x = element_blank())
+      theme(axis.text.x = element_text(angle = 15), axis.title.x = element_blank()) +
+      scale_fill_manual(values = c("#66c2a3", "#4292c5"))
       return(graph)
     })
   
@@ -47,10 +52,23 @@ server <- function(input, output) {
     t <- treemap(data.students,
                  index = c("Exam.Subject"),
                  vSize = "All.Students..2016.",
-                 palette = "Blues",
+                 palette = "GnBu",
                  title = "AP Test Distribution",
                  fontsize.title = 36,
-                 fontsize.labels = 14)
+                 fontsize.labels = 12)
+  })
+  
+  output$pie <- renderPlotly({
+    graph <- plot_ly(filtered.race(), labels = ~Race, values = ~Population, type = "pie", 
+                     marker = list(color = "GnBu"),
+                     textinfo = "percent", 
+                     insidetextfont = list(color = "white"), hoverinfo = "text",
+                     text = ~paste(Race, "\n", Population, " students")) %>%
+      layout(title = "AP Test Taker Demographic Breakdown", 
+             xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+             yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+            margin = list(b = 30, l = 30, r = 30, t = 30), legend = list(x = 10, y = -30))
+    return(graph)
   })
 }
 
