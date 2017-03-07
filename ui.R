@@ -19,7 +19,7 @@ data.students <- read.csv("data/students.csv", stringsAsFactors = FALSE)
 
 data.students <- data.students[-c(38, 39), ]
 
-ui <- fluidPage(theme = shinytheme("simplex"),
+ui <- fluidPage(theme = shinytheme("flatly"),
   titlePanel("AP Testing: STEM Analysis"),
   navbarPage("",
              tabPanel("Summary", plotOutput("treemap"), textOutput("summary")),
