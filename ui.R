@@ -4,6 +4,7 @@ library(dplyr)
 library(plotly)
 library(tidyr)
 library(treemap)
+library(shinythemes)
 
 data <- read.csv("data/exams.csv", stringsAsFactors = FALSE)
 
@@ -18,8 +19,8 @@ data.students <- read.csv("data/students.csv", stringsAsFactors = FALSE)
 
 data.students <- data.students[-c(38, 39), ]
 
-ui <- fluidPage(
-  titlePanel("Ap Sh/t"),
+ui <- fluidPage(theme = shinytheme("simplex"),
+  titlePanel("AP Testing: STEM Analysis"),
   navbarPage("Menu",
              tabPanel("Summary", plotOutput("treemap"), textOutput("summary")),
              tabPanel("Bar Graph", 

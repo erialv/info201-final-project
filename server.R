@@ -7,7 +7,6 @@ library(treemap)
 library(RColorBrewer)
 
 server <- function(input, output) {
-  
   filtered <- reactive({
     scores <- stem.data %>% 
       filter(Exam.Subject %in% input$subject) %>% 
@@ -63,9 +62,10 @@ server <- function(input, output) {
                      textinfo = "percent", 
                      insidetextfont = list(color = "white"), hoverinfo = "text",
                      text = ~paste(Race, "\n", Population, " students")) %>%
-      layout(title = "AP Test Taker Demographic Breakdown", 
+      layout(title = "AP Test Taker Demographic Breakdown",
              xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
              yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+             paper_bgcolor = "transparent",
             margin = list(b = 30, l = 30, r = 30, t = 30), legend = list(x = 10, y = -30))
     return(graph)
   })
