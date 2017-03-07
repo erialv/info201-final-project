@@ -21,7 +21,7 @@ data.students <- data.students[-c(38, 39), ]
 
 ui <- fluidPage(theme = shinytheme("simplex"),
   titlePanel("AP Testing: STEM Analysis"),
-  navbarPage("Menu",
+  navbarPage("",
              tabPanel("Summary", plotOutput("treemap"), textOutput("summary")),
              tabPanel("Bar Graph", 
                       sidebarLayout(
