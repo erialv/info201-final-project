@@ -21,8 +21,7 @@ data.students <- data.students[-c(38, 39), ]
 ui <- fluidPage(
   titlePanel("Ap Sh/t"),
   navbarPage("Menu",
-             tabPanel("Summary", verbatimTextOutput("summary")),
-             tabPanel("Treemap", plotOutput("treemap")),
+             tabPanel("Summary", plotOutput("treemap"), textOutput("summary")),
              tabPanel("Bar Graph", 
                       sidebarLayout(
                         sidebarPanel(

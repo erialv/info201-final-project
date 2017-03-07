@@ -43,7 +43,7 @@ server <- function(input, output) {
       geom_bar(mapping = aes(x = Exam.Subject, y = Percentage, fill = Sex), stat = "identity", position = "dodge") +
       ylim(0, 100) +
       labs(x = "Exam Subjects", y = "Percentage (in %)") +
-      theme(axis.text.x = element_text(angle = 15), axis.title.x = element_blank()) +
+      theme(axis.text.x = element_text(angle = 30, hjust = 1), axis.title.x = element_blank()) +
       scale_fill_manual(values = c("#66c2a3", "#4292c5"))
       return(graph)
     })
@@ -60,7 +60,6 @@ server <- function(input, output) {
   
   output$pie <- renderPlotly({
     graph <- plot_ly(filtered.race(), labels = ~Race, values = ~Population, type = "pie", 
-                     marker = list(color = "GnBu"),
                      textinfo = "percent", 
                      insidetextfont = list(color = "white"), hoverinfo = "text",
                      text = ~paste(Race, "\n", Population, " students")) %>%
@@ -69,6 +68,10 @@ server <- function(input, output) {
              yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
             margin = list(b = 30, l = 30, r = 30, t = 30), legend = list(x = 10, y = -30))
     return(graph)
+  })
+  
+  output$summary <- renderText({
+    return("\n Hello")
   })
 }
 
