@@ -72,8 +72,70 @@ server <- function(input, output) {
   })
   
   output$summary <- renderText({
-    return("\n Hello")
+    return("Advanced Placement (AP) exams, administered by the College Board, are taken yearly by 
+              high school students across the United States. More than 90% of four-year colleges in the 
+              United States offer credits, advanced placement, or both based on AP exam scores. Earning AP 
+              credits can help students graduate in four years and have more time to pursue activities, such 
+              as studying abroad, completing internships, etc.
+              This project is focused on analyzing the 2016 STEM (Science, Technology, Engineering, Math) AP exams. 
+              High school students who are interested in majoring in Informatics and Computer Science will be able to 
+              see how they perform compared to one another based on their different demographics, gender, and STEM subject 
+              testing. Education administrators (STEM teachers, principals, college admissions staff) can use the data to see the overall 
+              performance of test takers by STEM subject and gain insight on how different groups perform. That way, the administrators can 
+              may do some adjustments to the tests or to generalize the performance curve of different groups. Additionally, college admissions
+              staff can use this data to aid in their college admissions decisions."
+    )
   })
+  output$scores <- renderText({
+  return("The following bar graph shows scores of the different STEM subjects, by gender. You can select more than one 
+    subject to compare and contrast the scores by gender. Use the slider to indicate which particular score (on a scale of 1 to 5) 
+    you would like to view."
+  )
+    
+})
+  
+  
+  output$demographic <- renderText({
+    return("The following pie chart shows what percentage of each race/demographic group took a particular STEM subject exam. Click the 
+           dropdown to specify which subject you would like to see the breakdown of."
+    )
+    
+  })
+  
+  
+  output$sources <- renderText({
+    return("Here is the link to where we found our dataset. The scores were derived and taken from the College Board: \n 
+           https://www.kaggle.com/collegeboard/ap-scores  \n \n
+           
+           
+          This is the link to an article on how women are still underrepresented in STEM fields: \n
+           https://www.usnews.com/news/articles/2015/10/21/women-still-underrepresented-in-stem-fields \n \n
+
+
+          This is the link to an article on the 'race gap' in high school AP classes: \n
+
+        https://www.theatlantic.com/politics/archive/2014/12/the-race-gap-in-high-school-honors-classes/431751/"
+           )
+    
+    
+    
+    
+    
+  })
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }
+
+
 
 shinyServer(server)
