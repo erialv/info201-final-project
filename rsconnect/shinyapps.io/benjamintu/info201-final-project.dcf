@@ -1,0 +1,11 @@
+name: info201-final-project
+title: info201-final-project
+account: benjamintu
+server: shinyapps.io
+appId: 162285
+bundleId: 739295
+url: https://benjamintu.shinyapps.io/info201-final-project/
+when: 1489018722.12085
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .Rapp.history|.RData|README.md
