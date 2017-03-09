@@ -6,55 +6,57 @@ library(tidyr)
 library(treemap)
 library(shinythemes)
 
+# read in relevant data
 data <- read.csv("data/exams.csv", stringsAsFactors = FALSE)
 
+# vector of STEM subjects to filter with
 stem.subjects <- c("BIOLOGY", "CHEMISTRY", "CALCULUS AB", "CALCULUS BC", "COMPUTER SCIENCE A", "PHYSICS C: ELECTRICITY & MAGNETISM", "PHYSICS C: MECHANICS",
               "PHYSICS 1", "PHYSICS 2", "STATISTICS")
 
+# Filter for STEM subjects and exclude columns on 11th and 12th grade student data
 stem.data <- data %>% 
   filter(Exam.Subject %in% stem.subjects) %>%
   select(-Students..11th.Grade., -Students..12th.Grade.)
 
+# Read in more relevant data
 data.students <- read.csv("data/students.csv", stringsAsFactors = FALSE)
 
+# Exclude rows on "all subjects" data
 data.students <- data.students[-c(38, 39), ]
 
+# Set Shiny app theme to Flatly
 ui <- fluidPage(theme = shinytheme("flatly"),
   titlePanel("AP Testing: STEM Analysis"),
+  # Set layout to navbar page
   navbarPage("",
-             tabPanel("Summary", plotOutput("treemap"), textOutput("summary")),
-             tabPanel("Scores", textOutput("scores"),
+             # Create 4 tabs named summary, scores, demographics, and sources
+             # Summary panel with a treemap for all subjects and summary text
+             tabPanel("Summary", plotOutput("treemap"), verbatimTextOutput("summary")),
+             # Bar graph comparing scores by gender for STEM subjects with analysis
+             tabPanel("Scores", verbatimTextOutput("scores"),
                       sidebarLayout(
                         sidebarPanel(
+                          # Multi-select allows to select between 1 and all STEM subjects
                           selectizeInput("subject", label = "Exam Subjects", 
                                          choices = unique(stem.data$Exam.Subject),
                                          multiple = TRUE), 
+                          # Slider to select score (not ranged) to show data for
                           sliderInput("score", label = "Score", min = 1, max = 5, value = 1)),
                         mainPanel(
-                          plotOutput("bar"),
-                          p("The STEM subject with the highest percentages of a 5 for both males and females is AP 
-                            BC. Over 50% of males scored a perfect score of 5 in this category. Another observation to 
-                            note is that when you compare all of the STEM subjects in the graph, the percentage of males who 
-                            scored a 5 was higher than females, across the board. This is interesting to note, because there are
-                            many scholarly research articles on how women are still underrepresented in the STEM fields (See Sources
-                            for more details). This leads to a bigger discussion on how to grow and increase diversity within the 
-                            technology field. ")))),
-             tabPanel("Demographic", textOutput("demographic"),
+                          plotOutput("bar"), verbatimTextOutput("scorestext")))),
+                          # Analysis for bar graph
+             # Demographic makeup of test takers for a STEM subject in a pie chart
+             tabPanel("Demographic", verbatimTextOutput("demographic"),
                       sidebarLayout(
                         sidebarPanel(
+                          # Select a STEM subject to see demographic data for (one subject selectable at a time)
                           selectInput("subject.race", 
                                       label = "Exam Subjects", 
                                       choices = unique(stem.data$Exam.Subject))
-                        ), mainPanel(plotlyOutput("pie"), p("A noteworthy observation to make is that over 
-                                                              50% of the students who took all of the STEM subjects were Caucasian/White, and 
-                                                              in second place were Asian. This can be explained by multiple reasons. One explanation
-                                                              is because the Caucasian population is still the majority in the US. Secondly, research articles
-                                                              have shown that 'Black, Hispanic, and Native American students are less likely to attend high schools 
-                                                              that offer advanced courses, such as physics and calculus, and they're less likely to participate in those 
-                                                              courses when they are offered.' Check out the Sources tab for more information and a link to the article.")
-                                                              
-                                                           ))),
-             tabPanel("Sources", textOutput("sources")))
+                          # Analysis of demographic data pie chart
+                        ), mainPanel(plotlyOutput("pie"), verbatimTextOutput("demographictext")))),
+             # Citations for data
+             tabPanel("Sources", verbatimTextOutput("sources")))
 )
 
 shinyUI(ui)
