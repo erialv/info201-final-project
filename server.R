@@ -97,7 +97,8 @@ server <- function(input, output) {
   
   # Text for summary tab that accompanies treemap
   output$summary <- renderText({
-    return("Advanced Placement (AP) exams, administered by the College Board, are taken yearly by high school students across the United States. More than 90% of four-year colleges in the United States offer credits, advanced placement, or both based on AP exam scores. Earning AP 
+    return("Advanced Placement (AP) exams, administered by the College Board, are taken yearly by high school students across the United States. 
+More than 90% of four-year colleges in the United States offer credits, advanced placement, or both based on AP exam scores. Earning AP 
 credits can help students graduate in four years and have more time to pursue activities, such as studying abroad, completing internships, etc.
 This project is focused on analyzing the 2016 STEM (Science, Technology, Engineering, Math) AP exams. 
 High school students who are interested in majoring in Informatics and Computer Science will be able to 
